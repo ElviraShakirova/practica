@@ -63,6 +63,7 @@ export default {
     const resposnse = await this.axios.get(
       "https://www.cbr-xml-daily.ru/daily_json.js"
     );
+    console.log();
     const valutes = resposnse.data.Valute;
     this.data = Object.keys(valutes).map((item) => {
       return valutes[item];
