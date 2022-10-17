@@ -11,64 +11,33 @@
   </a-table>
 </div>
 </template>
+
 <script>
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "Name",
-    key: "Name",
-  },
-  {
-    title: "Id",
-    dataIndex: "ID",
-    key: "ID",
-    width: 80,
-  },
-  {
-    title: "Nominal",
-    dataIndex: "Nominal",
-    key: "Nominal",
-    
-  },
-  {
-    title: "CharCode",
-    dataIndex: "CharCode",
-    key: "CharCode",
-  },
-  {
-    title: "NumCode",
-    dataIndex: "NumCode",
-    key: "NumCode",
-  },
-  {
-    title: "Previous",
-    dataIndex: "Previous",
-    key: "Previous",
-  },
-  {
-    title: "Value",
-    dataIndex: "Value",
-    key: "Value",
-  },
-];
+import { mapActions, mapState } from 'vuex';
+import { COLUMNS }  from '@/tools/constants.js'
 
 export default {
   data() {
     return {
       data: [],
-      columns,
+      columns: COLUMNS,
     };
   },
   async mounted() {
     const resposnse = await this.axios.get(
       "https://www.cbr-xml-daily.ru/daily_json.js"
     );
-    console.log();
     const valutes = resposnse.data.Valute;
     this.data = Object.keys(valutes).map((item) => {
       return valutes[item];
     });
   },
+  computed: {
+    ...mapState('initState', ['variable']) // 'variable'
+  },
+  methods: {
+    ...mapActions('initState', ['request']) // 'request'
+  }
 };
 </script>
 

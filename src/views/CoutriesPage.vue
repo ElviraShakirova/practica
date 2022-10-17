@@ -1,7 +1,7 @@
 <template>
   <main>
     <CountryCard
-      v-for="country in countries"
+      v-for="country in country"   
       :key="country.ISO2"
       :country="country"
     />
@@ -19,17 +19,15 @@ export default {
     CountryCard,
 
   },
+ 
 
   data() {
-    return {
-      countries: [],
-    };
-  },
+   return {
+    countries: [],
+     };
+    },
   async mounted() {
-    const resposnse = await this.axios.get(
-      "https://api.covid19api.com/countries"
-    );
-    this.countries = resposnse.data || [];
+   
   },
 };
 </script>
