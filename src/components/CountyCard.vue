@@ -1,11 +1,9 @@
 <template>
-
-   <router-link class="card" :to="`/countries/${country.ISO2}`" > 
+  <router-link class="card" :to="`/countries/${country.ISO2}`">
     <div>{{ country.Country }}</div>
     <div>{{ country.Slug }}</div>
     <div>{{ country.ISO2 }}</div>
   </router-link>
- 
 </template>
 
 <script>

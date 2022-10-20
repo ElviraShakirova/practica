@@ -1,16 +1,10 @@
-<template>    
+<template>
   <div id="app">
     <div>
       <header>
         <div class="click">
-          <button :class="isActive('')" @click="navigate('/')">
-            Курс валют
-          </button>
-          <button
-            :class="isActive('countries')"
-            @click="navigate('/countries')"
-            
-          >
+          <button :class="isActive('')" @click="navigate('/')">Курс валют</button>
+          <button :class="isActive('countries')" @click="navigate('/countries')">
             Список стран
           </button>
         </div>
@@ -22,7 +16,7 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
   components: {},
   computed: {},
   methods: {
@@ -30,8 +24,8 @@ export default {
       this.$router.push(path);
     },
     isActive(path) {
-      console.log(path,);
-      return this.$route.path.split('/')[1] === path ? "active" : "";
+      console.log(path);
+      return this.$route.path.split('/')[1] === path ? 'active' : '';
     },
   },
 };

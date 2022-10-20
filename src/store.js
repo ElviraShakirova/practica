@@ -1,21 +1,19 @@
-import { createStore } from 'vuex';
-import axios from "axios";
+import axios from 'axios';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-export const state = ({       
-                               
-});
+Vue.use(Vuex);
 
-export const actions = {     
-  async getExchangeRates(){ 
-    const response = await axios.get("https://api.covid19api.com/countries")
-    console.log(response)
-    }
-   
+export const state = {};
 
-  };
- 
+export const actions = {
+  async getExchangeRates() {
+    const response = await axios.get('https://api.covid19api.com/countries');
+    console.log(response);
+  },
+};
 
-export const mutations = { 
+export const mutations = {
   update(state, data) {
     Object.keys(data).forEach((key) => {
       state[key] = data[key];
@@ -30,7 +28,9 @@ const initState = {
   actions,
   getters: {},
 };
-  
-const store = createStore(initState);
+
+const store = new Vuex.Store({
+  ...initState,
+});
 
 export default store;
