@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 import { COLUMNS } from '@/tools/constants.js';
 
 export default {
@@ -24,17 +24,13 @@ export default {
     };
   },
   async mounted() {
-    const resposnse = await this.axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-    const valutes = resposnse.data.Valute;
+    const valutes = await this.getExchangeRate();
     this.data = Object.keys(valutes).map((item) => {
       return valutes[item];
     });
   },
-  computed: {
-    ...mapState('initState', ['variable']), // 'variable'
-  },
   methods: {
-    ...mapActions('initState', ['request']), // 'request'
+    ...mapActions(['getExchangeRates']),
   },
 };
 </script>
