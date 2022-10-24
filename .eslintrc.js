@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'linebreak-style': ['error', 'unix'],
     'no-unused-vars': 'off',
     'comma-dangle': ['error', 'only-multiline'],
     'vue/no-unused-components': [
