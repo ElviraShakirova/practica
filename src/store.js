@@ -7,9 +7,9 @@ Vue.use(Vuex);
 export const state = {};
 
 export const actions = {
-  async getExchangeRates() {
+  async getCountries() {
     const response = await axios.get('https://api.covid19api.com/countries');
-    console.log(response);
+    return response?.data || [];
   },
 };
 

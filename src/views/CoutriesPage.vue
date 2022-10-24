@@ -1,6 +1,6 @@
 <template>
   <main>
-    <CountryCard v-for="country in country" :key="country.ISO2" :country="country" />
+    <CountryCard v-for="country in countries" :key="country.ISO2" :country="country" />
   </main>
 </template>
 
@@ -17,7 +17,9 @@ export default {
       countries: [],
     };
   },
-  async mounted() {},
+  async mounted() {
+    this.countries = await this.$store.dispatch('getCountries');
+  },
 };
 </script>
 
