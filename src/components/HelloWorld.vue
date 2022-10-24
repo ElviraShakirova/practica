@@ -24,7 +24,7 @@ export default {
     };
   },
   async mounted() {
-    const valutes = await this.getExchangeRate();
+    const valutes = await this.getExchangeRates();
     this.data = Object.keys(valutes).map((item) => {
       return valutes[item];
     });
