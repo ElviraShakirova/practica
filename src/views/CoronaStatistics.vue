@@ -22,15 +22,12 @@ export default {
     return {
       days: [],
       loading: true,
-      info: false,
     };
   },
   async mounted() {
     const country = this.$route.params.country;
-    const resposnse = await this.axios.get(`https://api.covid19api.com/total/country/${country}`);
-    this.days = resposnse.data || [];
+    this.days = await this.$store.dispatch('getCoronaSatictics', country);
     this.loading = false;
-    this.unfo = true;
   },
 };
 </script>

@@ -11,6 +11,15 @@ export const actions = {
     const response = await axios.get('https://api.covid19api.com/countries');
     return response?.data || [];
   },
+  async getExchangeRates() {
+    const resposnse = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
+    return resposnse?.data.Valute || [];
+  },
+
+  async getCoronaSatictics(app, country) {
+    const response = await axios.get(`https://api.covid19api.com/total/country/${country}`);
+    return response?.data || [];
+  },
 };
 
 export const mutations = {
