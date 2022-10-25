@@ -13,7 +13,7 @@ export const actions = {
   },
   async getExchangeRates() {
     const resposnse = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-    return resposnse?.data.Valute || [];
+    return resposnse?.data?.Valute || [];
   },
 
   async getCoronaSatictics(app, country) {

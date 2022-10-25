@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a-table :columns="columns" :data-source="data">
+    <a-table :columns="columns" :data-source="data" bordered :pagination="pagination">
       <a slot="Name" slot-scope="text">{{ text }}</a>
       <a slot="ID" slot-scope="text">{{ text }}</a>
       <a slot="Nominal" slot-scope="text">{{ text }}</a>
