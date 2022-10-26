@@ -7,6 +7,7 @@
           <button :class="isActive('countries')" @click="navigate('/countries')">
             Список стран
           </button>
+          <button :class="isActive('list')" @click="navigate('/list')">Список дел</button>
         </div>
       </header>
     </div>
@@ -50,7 +51,7 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  width: 50%;
+  width: 33%;
   cursor: pointer;
 }
 .active {

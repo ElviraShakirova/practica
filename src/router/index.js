@@ -18,6 +18,10 @@ const routes = [
     component: HomePage,
   },
   {
+    path: '/list',
+    component: () => import(/* webpackChunkName: "" */ '@/views/DoList'),
+  },
+  {
     path: '*',
     component: () => import(/* webpackChunkName: "404" */ '@/views/NotFound'),
   },
