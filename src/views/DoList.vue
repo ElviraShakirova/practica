@@ -1,21 +1,14 @@
 <template>
-  <main>
-    <h1>Список задач</h1>
-    <input type="text" placeholder="Напишите задачу" />
-    <button class="save">Сохранить</button>
-  </main>
+  <ToList />
 </template>
 
 <script>
-export default {};
+import ToList from '@/components/ToList.vue';
+export default {
+  components: {
+    ToList,
+  },
+};
 </script>
 
-<style scoped>
-.save {
-  background-color: #2dacb0;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  font-size: 12px;
-}
-</style>
+<style></style>
