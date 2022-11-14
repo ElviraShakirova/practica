@@ -1,18 +1,23 @@
 <template>
   <main>
     <h1>Список задач</h1>
-    <div>
-      <input class="pole" v-model="message" type="text" placeholder="Напишите задачу" />
-      <button class="save" @click="addMessage(index)">Сохранить</button>
-    </div>
-    <div class="list" v-for="(task, index) in tasks" :key="index">
-      <div>
-        {{ task }}
+    <div class="box">
+      <div class="stroka">
+        <input class="pole" v-model="message" type="text" placeholder="Напишите задачу" />
+        <button class="save" @click="addMessage()" :disabled="!message.length">Сохранить</button>
       </div>
-      <div class="result">
-        <button class="delete" @click="deleteMessage(index)">удалить</button>
-        <button class="execute" @click="executeMessage()">выполнить</button>
-        <button class="change" @click="changeMessage()">изменить</button>
+
+      <div v-for="(task, index) in tasks" :class="!task.complete ? 'list' : 'isShow'" :key="index">
+        <input v-if="task.editMode" v-model="task.name" class="changePole" type="text" />
+        <div v-else>{{ task.name }}</div>
+
+        <div class="result">
+          <button class="delete" @click="deleteMessage(index)">Удалить</button>
+          <button class="execute" @click="executeMessage(index)">Выполнить</button>
+          <button class="change" @click="changeMessage(index)">
+            {{ task.saveTask ? 'Сохранить' : 'Редактировать' }}
+          </button>
+        </div>
       </div>
     </div>
   </main>
@@ -22,20 +27,32 @@
 export default {
   data() {
     return {
-      tasks: [], //// сделать массив обьектов,узнать у Миши как и почему именно обьекты
+      tasks: [],
       message: '',
     };
   },
+
   methods: {
     addMessage() {
-      this.tasks.push(this.message);
+      const task = {
+        name: this.message,
+        complete: false,
+        editMode: false,
+        saveTask: false,
+      };
+      this.tasks.push(task);
+      this.message = '';
     },
     deleteMessage(index) {
-      console.log(index);
       this.tasks.splice(index, 1); /// удалить элемент  сколкьок элементов 1
     },
-    executeMessage() {},
-    changeMessage() {},
+    executeMessage(index) {
+      this.tasks[index].complete = !this.tasks[index].complete;
+    },
+    changeMessage(index) {
+      this.tasks[index].editMode = !this.tasks[index].editMode;
+      this.tasks[index].saveTask = !this.tasks[index].saveTask;
+    },
   },
 };
 </script>
@@ -47,12 +64,36 @@ main {
   justify-content: center;
   flex-direction: column;
 }
+.box {
+  width: 600px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgb(7, 7, 80);
+}
+.pole {
+  width: 400px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.stroka {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
 .list {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 400px;
+  margin-left: 30px;
+  margin-right: 20px;
+  color: #000;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .save {
   background-color: #a7d9db;
@@ -60,10 +101,24 @@ main {
   text-align: center;
   width: 200px;
   font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .tasks {
   min-height: 10em;
   display: table-cell;
   vertical-align: middle;
+}
+
+.isShow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 20px;
+  color: yellowgreen;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-decoration: line-through;
 }
 </style>
