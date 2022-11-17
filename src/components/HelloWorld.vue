@@ -21,6 +21,9 @@ export default {
     return {
       data: [],
       columns: COLUMNS,
+      pagination: {
+        pageSize: 15,
+      },
     };
   },
   async mounted() {

@@ -15,7 +15,7 @@
           <button class="delete" @click="deleteMessage(index)">Удалить</button>
           <button class="execute" @click="executeMessage(index)">Выполнить</button>
           <button class="change" @click="changeMessage(index)">
-            {{ task.saveTask ? 'Сохранить' : 'Редактировать' }}
+            {{ task.editMode ? 'Сохранить' : 'Редактировать' }}
           </button>
         </div>
       </div>
@@ -33,26 +33,36 @@ export default {
   },
 
   methods: {
+    setStorage() {
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    },
     addMessage() {
       const task = {
         name: this.message,
         complete: false,
         editMode: false,
-        saveTask: false,
       };
+
       this.tasks.push(task);
       this.message = '';
+      this.setStorage();
     },
     deleteMessage(index) {
-      this.tasks.splice(index, 1); /// удалить элемент  сколкьок элементов 1
+      this.tasks.splice(index, 1);
     },
     executeMessage(index) {
       this.tasks[index].complete = !this.tasks[index].complete;
+      this.setStorage();
     },
     changeMessage(index) {
       this.tasks[index].editMode = !this.tasks[index].editMode;
-      this.tasks[index].saveTask = !this.tasks[index].saveTask;
+      if (!this.tasks[index].editMode) {
+        this.setStorage();
+      }
     },
+  },
+  mounted() {
+    this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   },
 };
 </script>
