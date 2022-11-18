@@ -2,23 +2,34 @@
   <main>
     <h1>Список задач</h1>
     <div class="box">
-      <div class="stroka">
+      <div class="stroka magnitude">
         <input class="pole" v-model="message" type="text" placeholder="Напишите задачу" />
         <button class="save" @click="addMessage()" :disabled="!message.length">Сохранить</button>
       </div>
 
-      <div v-for="(task, index) in tasks" :class="!task.complete ? 'list' : 'isShow'" :key="index">
+      <div
+        v-for="(task, index) in tasks"
+        :class="`list magnitude${task.complete ? ' shown' : ''}`"
+        :key="index">
         <input v-if="task.editMode" v-model="task.name" class="changePole" type="text" />
         <div v-else>{{ task.name }}</div>
 
         <div class="result">
-          <button class="delete" @click="deleteMessage(index)">Удалить</button>
-          <button class="execute" @click="executeMessage(index)">Выполнить</button>
-          <button class="change" @click="changeMessage(index)">
+          <button class="delete" @click="deleteMessage(index)" rel="" href="delete">
+           Elfkbnm
+          <button
+            class="execute"
+            @click="executeMessage(index)"
+            :disabled="(task.complete, task.editMode)">
+            {{ task.complete ? 'Выполнено' : 'Выполнить' }}
+          </button>
+          <button class="change" @click="changeMessage(index)" :disabled="task.complete">
             {{ task.editMode ? 'Сохранить' : 'Редактировать' }}
           </button>
+          
         </div>
       </div>
+      <button class="clearItems magnitude" @click="clearMessage()">Удалить все</button>
     </div>
   </main>
 </template>
@@ -29,12 +40,16 @@ export default {
     return {
       tasks: [],
       message: '',
+      itemKey: 'tasks',
     };
   },
 
   methods: {
     setStorage() {
-      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+      localStorage.setItem(this.itemKey, JSON.stringify(this.tasks));
+    },
+    removeStorage() {
+      localStorage.removeItem(this.itemKey);
     },
     addMessage() {
       const task = {
@@ -49,6 +64,7 @@ export default {
     },
     deleteMessage(index) {
       this.tasks.splice(index, 1);
+      this.setStorage();
     },
     executeMessage(index) {
       this.tasks[index].complete = !this.tasks[index].complete;
@@ -59,6 +75,10 @@ export default {
       if (!this.tasks[index].editMode) {
         this.setStorage();
       }
+    },
+    clearMessage() {
+      this.tasks.splice(this.tasks);
+      this.removeStorage();
     },
   },
   mounted() {
@@ -89,19 +109,17 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 30px;
-  margin-right: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .list {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #000;
+}
+.magnitude {
   margin-left: 30px;
   margin-right: 20px;
-  color: #000;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -111,8 +129,6 @@ main {
   text-align: center;
   width: 200px;
   font-size: 15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 .tasks {
   min-height: 10em;
@@ -120,15 +136,8 @@ main {
   vertical-align: middle;
 }
 
-.isShow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 30px;
-  margin-right: 20px;
+.shown {
   color: yellowgreen;
-  margin-top: 10px;
-  margin-bottom: 10px;
   text-decoration: line-through;
 }
 </style>
