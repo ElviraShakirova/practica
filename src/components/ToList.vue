@@ -3,8 +3,13 @@
     <h1>Список задач</h1>
     <div class="box">
       <div class="stroka magnitude">
-        <input class="pole" v-model="message" type="text" placeholder="Напишите задачу" />
-        <button class="save" @click="addMessage()" :disabled="!message.length">Сохранить</button>
+        <input
+          class="pole"
+          v-model="message"
+          type="text"
+          placeholder="Напишите задачу"
+          v-on:keyup.enter="addMessage" />
+        <button class="save" @click="addMessage()">Сохранить</button>
       </div>
 
       <div
@@ -15,18 +20,18 @@
         <div v-else>{{ task.name }}</div>
 
         <div class="result">
-          <button class="delete" @click="deleteMessage(index)" rel="" href="delete">
-           Elfkbnm
+          <button class="delete" @click="deleteMessage(index)">
+            <a-icon type="close" />
+          </button>
           <button
             class="execute"
             @click="executeMessage(index)"
-            :disabled="(task.complete, task.editMode)">
-            {{ task.complete ? 'Выполнено' : 'Выполнить' }}
+            :disabled="(task.editMode, task.complete)">
+            {{ task.complete ? 'svg' : 'Выполнить' }}
           </button>
           <button class="change" @click="changeMessage(index)" :disabled="task.complete">
             {{ task.editMode ? 'Сохранить' : 'Редактировать' }}
           </button>
-          
         </div>
       </div>
       <button class="clearItems magnitude" @click="clearMessage()">Удалить все</button>
@@ -52,6 +57,7 @@ export default {
       localStorage.removeItem(this.itemKey);
     },
     addMessage() {
+      if (!this.message.length) return;
       const task = {
         name: this.message,
         complete: false,
@@ -68,6 +74,8 @@ export default {
     },
     executeMessage(index) {
       this.tasks[index].complete = !this.tasks[index].complete;
+      const [item] = this.tasks.splice(index, 1);
+      this.tasks.push(item);
       this.setStorage();
     },
     changeMessage(index) {
@@ -137,7 +145,6 @@ main {
 }
 
 .shown {
-  color: yellowgreen;
-  text-decoration: line-through;
+  background: #a7d9db;
 }
 </style>
