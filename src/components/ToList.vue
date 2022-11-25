@@ -17,20 +17,22 @@
         :class="`list magnitude${task.complete ? ' shown' : ''}`"
         :key="index">
         <input v-if="task.editMode" v-model="task.name" class="changePole" type="text" />
-        <div v-else>{{ task.name }}</div>
+        <div v-else class="prak">{{ task.name }}</div>
 
         <div class="result">
           <button class="delete" @click="deleteMessage(index)">
-            <a-icon type="close" />
+            <a-icon class="example" type="close" />
           </button>
           <button
             class="execute"
             @click="executeMessage(index)"
             :disabled="(task.editMode, task.complete)">
-            {{ task.complete ? 'svg' : 'Выполнить' }}
+            <img class="example" src="@/assets/icons/arrow_button_set.svg" alt="Сохранить" />
           </button>
           <button class="change" @click="changeMessage(index)" :disabled="task.complete">
-            {{ task.editMode ? 'Сохранить' : 'Редактировать' }}
+            <img
+              class="example"
+              src="https://cdn.w600.comps.canstockphoto.ru/%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BB%D0%B8%D0%BF%D0%B0%D1%80%D1%82_csp57852709.jpg" />
           </button>
         </div>
       </div>
@@ -102,23 +104,58 @@ main {
   justify-content: center;
   flex-direction: column;
 }
+
 .box {
   width: 600px;
   border-style: solid;
-  border-width: 5px;
-  border-color: rgb(7, 7, 80);
+  border-width: 2px;
+  border-color: rgb(10, 140, 101);
+  background: rgb(236, 236, 236);
 }
 .pole {
-  width: 400px;
+  background-color: azure;
+  width: 500px;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: #1389a0;
+  border: solid #1389a0;
+  padding: 5px;
+  border-radius: 10px 0px 0px 10px;
+  border-width: 2px 0px 2px 2px;
 }
-.stroka {
+.save {
+  border-radius: 0px 10px 10px 0px;
+  color: #1389a0;
+  border: solid #1389a0;
+  text-align: center;
+  width: 200px;
+  padding: 5px;
+  border-width: 2px 2px 2px 2px;
+}
+
+.result {
+  display: flex;
+}
+.prak {
+  text-align: justify;
+  width: 420px;
+  font-weight: bold;
+  word-wrap: break-word;
+  white-space: normal;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
+.stroka {
+  width: 540px;
+  display: flex;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.changePole {
+  width: 420px;
+}
 .list {
   display: flex;
   align-items: center;
@@ -130,18 +167,39 @@ main {
   margin-right: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.save {
-  background-color: #a7d9db;
-  color: rgb(17, 63, 87);
-  text-align: center;
-  width: 200px;
-  font-size: 15px;
+.delete {
+  border-radius: 100px;
+  border: 0px solid rgb(236, 236, 236);
+}
+.execute {
+  border-radius: 100px;
+  border: 0px solid rgb(236, 236, 236);
+}
+.change {
+  border-radius: 100px;
+  border: 0px solid rgb(236, 236, 236);
 }
 .tasks {
   min-height: 10em;
   display: table-cell;
   vertical-align: middle;
+}
+
+.example {
+  color: blue;
+  font-size: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.clearItems {
+  color: #1389a0;
+  border: 2px solid #1389a0;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 .shown {
