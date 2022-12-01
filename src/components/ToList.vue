@@ -21,18 +21,16 @@
 
         <div class="result">
           <button class="delete" @click="deleteMessage(index)">
-            <a-icon class="example" type="close" />
+            <a-icon class="example" type="close-circle" />
           </button>
           <button
             class="execute"
             @click="executeMessage(index)"
             :disabled="(task.editMode, task.complete)">
-            <img class="example" src="@/assets/icons/arrow_button_set.svg" alt="Сохранить" />
+            <a-icon class="example" type="check-circle" />
           </button>
           <button class="change" @click="changeMessage(index)" :disabled="task.complete">
-            <img
-              class="example"
-              src="https://cdn.w600.comps.canstockphoto.ru/%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BB%D0%B8%D0%BF%D0%B0%D1%80%D1%82_csp57852709.jpg" />
+            <a-icon class="example" type="edit" />
           </button>
         </div>
       </div>
@@ -189,10 +187,10 @@ main {
 }
 
 .example {
-  color: blue;
-  font-size: 10px;
-  width: 20px;
-  height: 20px;
+  color: #1389a0;
+  font-size: 18px;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
 }
 .clearItems {
