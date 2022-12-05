@@ -16,7 +16,12 @@
         v-for="(task, index) in tasks"
         :class="`list magnitude${task.complete ? ' shown' : ''}`"
         :key="index">
-        <input v-if="task.editMode" v-model="task.name" class="changePole" type="text" />
+        <input
+          v-if="task.editMode"
+          v-model="task.name"
+          class="changePole"
+          type="text"
+          v-on:keyup.enter="changeMessage(index)" />
         <div v-else class="prak">{{ task.name }}</div>
 
         <div class="result">
@@ -26,7 +31,7 @@
           <button
             class="execute"
             @click="executeMessage(index)"
-            :disabled="(task.editMode, task.complete)">
+            :disabled="task.editMode || task.complete">
             <a-icon class="example" type="check-circle" />
           </button>
           <button class="change" @click="changeMessage(index)" :disabled="task.complete">
@@ -129,6 +134,7 @@ main {
   width: 200px;
   padding: 5px;
   border-width: 2px 2px 2px 2px;
+  cursor: pointer;
 }
 
 .result {
@@ -171,14 +177,17 @@ main {
 .delete {
   border-radius: 100px;
   border: 0px solid rgb(236, 236, 236);
+  cursor: pointer;
 }
 .execute {
   border-radius: 100px;
   border: 0px solid rgb(236, 236, 236);
+  cursor: pointer;
 }
 .change {
   border-radius: 100px;
   border: 0px solid rgb(236, 236, 236);
+  cursor: pointer;
 }
 .tasks {
   min-height: 10em;
@@ -198,6 +207,7 @@ main {
   border: 2px solid #1389a0;
   border-radius: 5px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .shown {
